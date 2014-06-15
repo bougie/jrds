@@ -17,23 +17,42 @@ import javax.servlet.http.HttpServletResponse;
 import jrds.HostsList;
 import jrds.HostInfo;
 
+import org.apache.log4j.Logger;
+
 /**
  * A servlet wich show the list of hosts
  * @author David Hymonnet
  */
 public final class Hosts extends JrdsServlet {
+	static final private Logger logger = Logger.getLogger(JSonData.class);
+
 	/**
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 	throws ServletException, IOException {
-		res.setContentType("text/plain");
-		res.addHeader("Cache-Control", "no-cache");
-		ServletOutputStream out = res.getOutputStream();
+		try {
+			JrdsJSONWriter w = new JrdsJSONWriter(res);
+			w.object();
 
-		Collection<HostInfo> hosts = getHostsList().getHosts();
-		for(HostInfo host: hosts) {
-			out.println(host.getName());
+			w.key("items");
+			w.array();
+			w.newLine();
+			Collection<HostInfo> hosts = getHostsList().getHosts();
+			for(HostInfo host: hosts) {
+				w.value(host.getName());
+			}
+			w.endArray();
+
+			w.newLine();
+			w.endObject();
+			w.newLine();
+			w.flush();
+		} catch (Exception e) {
+			if(logger.isDebugEnabled())
+				logger.error(e, e);
+			else 
+				logger.error(e);
 		}
 	}
 }
