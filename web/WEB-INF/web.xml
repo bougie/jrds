@@ -116,6 +116,10 @@
 		<servlet-class>
 			jrds.webapp.GetDiscoverHtmlCode</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>HostsList</servlet-name>
+		<servlet-class>jrds.webapp.Hosts</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>CheckValues</servlet-name>
 		<url-pattern>/values/*</url-pattern>
@@ -199,5 +203,9 @@
 	<servlet-mapping>
 		<servlet-name>GetDiscoverHtmlCode</servlet-name>
 		<url-pattern>/discoverhtml</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HostsList</servlet-name>
+		<url-pattern>/hosts</url-pattern>
 	</servlet-mapping>
 </web-app>
