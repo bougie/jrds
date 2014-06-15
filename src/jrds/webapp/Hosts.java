@@ -24,32 +24,32 @@ import org.apache.log4j.Logger;
  * @author David Hymonnet
  */
 public final class Hosts extends JrdsServlet {
-	static final private Logger logger = Logger.getLogger(Hosts.class);
+    static final private Logger logger = Logger.getLogger(Hosts.class);
 
-	/**
-	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
-	public void doGet(HttpServletRequest req, HttpServletResponse res)
-	throws ServletException, IOException {
-		try {
-			JrdsJSONWriter w = new JrdsJSONWriter(res);
-			w.object();
+    /**
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
+    public void doGet(HttpServletRequest req, HttpServletResponse res)
+    throws ServletException, IOException {
+        try {
+            JrdsJSONWriter w = new JrdsJSONWriter(res);
+            w.object();
 
-			w.key("items");
-			w.array();
-			w.newLine();
-			Collection<HostInfo> hosts = getHostsList().getHosts();
-			for(HostInfo host: hosts) {
-				w.value(host.getName());
-			}
-			w.endArray();
+            w.key("items");
+            w.array();
+            w.newLine();
+            Collection<HostInfo> hosts = getHostsList().getHosts();
+            for(HostInfo host: hosts) {
+                w.value(host.getName());
+            }
+            w.endArray();
 
-			w.newLine();
-			w.endObject();
-			w.newLine();
-			w.flush();
-		} catch (Exception e) {
-			logger.warn("Failed request: " + request.getRequestURI() +": " + e, e);
-		}
-	}
+            w.newLine();
+            w.endObject();
+            w.newLine();
+            w.flush();
+        } catch (Exception e) {
+            logger.warn("Failed request: " + request.getRequestURI() +": " + e, e);
+        }
+    }
 }
