@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
  * @author David Hymonnet
  */
 public final class Hosts extends JrdsServlet {
-	static final private Logger logger = Logger.getLogger(JSonData.class);
+	static final private Logger logger = Logger.getLogger(Hosts.class);
 
 	/**
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -49,10 +49,7 @@ public final class Hosts extends JrdsServlet {
 			w.newLine();
 			w.flush();
 		} catch (Exception e) {
-			if(logger.isDebugEnabled())
-				logger.error(e, e);
-			else 
-				logger.error(e);
+			logger.warn("Failed request: " + request.getRequestURI() +": " + e, e);
 		}
 	}
 }
