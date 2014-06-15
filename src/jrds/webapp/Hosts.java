@@ -49,7 +49,7 @@ public final class Hosts extends JrdsServlet {
             w.newLine();
             w.flush();
         } catch (Exception e) {
-            logger.warn("Failed request: " + request.getRequestURI() +": " + e, e);
+            logger.warn("Failed request: " + req.getRequestURI() + ": " + e, e);
         }
     }
 }
